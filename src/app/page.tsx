@@ -1,100 +1,76 @@
-import Image from "next/image";
+import Link from 'next/link';
+import { Table, Column } from '@/app/components/table';
+import { Map } from '@/app/components/map';
+import { Flex } from '@/app/components/flex';
+import { getAmountWithCurrency, formatPhoneNumber } from '@/app/utils';
+import price from '@/database/price.json';
+import contactInfo from '@/database/contact-info.json';
+import { ContactInfo, MetalDto, MetalRow } from '@/app/types';
+import { LocationIcon } from '@/app/components/icons/location';
+import { OfficeHoursIcon } from '@/app/components/icons/office-hours';
+import { PhoneIcon } from '@/app/components/icons/phone';
 
-export default function Home() {
+/** Колонки таблицы металлов. */
+const columns: Column[] = [
+  {
+    label: 'Вид металла',
+    name: 'type',
+  },
+  {
+    label: 'Наличные (цена за 1 кг.)',
+    name: 'cashPayment',
+  },
+]
+
+export default async function Home() {
+  const { address, coordinates, opening, phone } = contactInfo as ContactInfo;
+
+  const items: MetalRow[] = (price as unknown as MetalDto[] ?? []).map(({ cashPayment, type }) => ({
+    cashPayment: Array.isArray(cashPayment) ? `${getAmountWithCurrency(cashPayment[0])} - ${getAmountWithCurrency(cashPayment[1])}` : getAmountWithCurrency(cashPayment),
+    type,
+  }))
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div className="max-w-4xl m-auto">
+      <header className="relative bg-bgPrimary flex flex-col font-medium gap-x-8 gap-y-2 px-8 py-8 rounded-sm text-textSecondary md:flex-row md:items-center">
+        <Flex className="gap-x-2.5">
+          <LocationIcon />
+          <Link href="#map" title="Посмотреть на карте">{address}</Link>
+        </Flex>
+        <Flex className="gap-x-2.5">
+          <OfficeHoursIcon />
+          <span>{`${opening.days.start}-${opening.days.end} c ${opening.hours.start} до ${opening.hours.start}`}</span>
+        </Flex>
+        <Flex className="gap-x-2.5 grow font-semibold justify-start md:justify-end md:text-right text-lg">
+          <PhoneIcon size="M" />
+          <Link className="" href={`tel:${phone}`} title="Позвонить">{formatPhoneNumber(phone)}</Link>
+        </Flex>
+        <div className="absolute bg-bgSecondary -bottom-1/4 md:-bottom-1/2 font-light left-1/2 py-2 px-4 rounded-sm text-center text-textPrimary transform -translate-x-1/2 -translate-y-1/2 w-11/12" >
+          <h4>Доступна услуга вывоза металлолома</h4>
+        </div>
+      </header>
+      <main className="flex flex-col gap-y-16 px-3 md:px-8 py-16">
+        <div>
+          <h3 className="font-semibold mb-2 text-center text-lg">Цены приема лома металлов</h3>
+          <Table<MetalRow> columns={columns} data={items} />
+        </div>
+        <div id="map">
+          <Map coordinates={coordinates} />
         </div>
       </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+      <footer className="bg-bgPrimary flex flex-col md:flex-row gap-y-1 justify-between px-8 py-3 rounded-sm text-textSecondary text-xs md:text-sm">
+        <Flex className="gap-x-1">
+          <LocationIcon color="var(--bg-secondary)" size="XS" />
+          {address}
+        </Flex>
+        <Flex className="gap-x-1">
+          <OfficeHoursIcon color="var(--bg-secondary)" size="XS" />
+          <span>{`${opening.days.start}-${opening.days.end} c ${opening.hours.start} до ${opening.hours.start}`}</span>
+        </Flex>
+        <Flex className="gap-x-1">
+          <PhoneIcon color="var(--bg-secondary)" size="XS" />
+          <Link href={`tel:${phone}`} title="Позвонить">{formatPhoneNumber(phone)}</Link>
+        </Flex>
       </footer>
     </div>
   );

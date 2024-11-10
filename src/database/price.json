@@ -1,0 +1,46 @@
+[
+  {
+    "type": "Алюминий",
+    "cashPayment": 80
+  },
+  {
+    "type": "Алюминий профиля",
+    "cashPayment": 110
+  },
+  {
+    "type": "Алюминий эликтротех",
+    "cashPayment": 140
+  },
+  {
+    "type": "Аккумулятор",
+    "cashPayment": 140
+  },
+  {
+    "type": "Алюминий кабель",
+    "cashPayment": [30, 100]
+  },
+  {
+    "type": "Свинец",
+    "cashPayment": 100
+  },
+  {
+    "type": "Свинец кабель",
+    "cashPayment": [50, 100]
+  },
+  {
+    "type": "Медь",
+    "cashPayment": 670
+  },
+  {
+    "type": "Медь кабель",
+    "cashPayment": [80, 100]
+  },
+  {
+    "type": "Медь проволока",
+    "cashPayment": [100, 250]
+  },
+  {
+    "type": "Латунь",
+    "cashPayment": 360
+  }
+]

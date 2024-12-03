@@ -23,7 +23,7 @@ interface Range {
 }
 
 /** Контактная информация. */
-export interface ContactInfo {
+export interface ContactInfoDto {
   /** Адрес. */
   address: string;
   /** Координаты. */
@@ -33,8 +33,30 @@ export interface ContactInfo {
     /** Дни. */
     days: Range;
     /** Часы. */
-    hours: Range;
+    hours: Range & {
+      /** Круглосуточно. */
+      dayAndNight?: boolean;
+    };
   },
   /** Телефон. */
   phone: string;
+}
+
+/** Контактная информация. */
+export interface ContactInfo {
+  /** Адрес. */
+  address: string;
+  /** Координаты. */
+  coordinates: [number, number];
+  /** Время работы. */
+  opening: {
+    /** Дни. */
+    days: string;
+    /** Часы. */
+    hours: string;
+  },
+  /** Телефон. */
+  phone: string;
+  /** Телефон. */
+  rawPhone: string;
 }

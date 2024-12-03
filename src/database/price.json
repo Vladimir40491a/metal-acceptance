@@ -12,12 +12,12 @@
     "cashPayment": 140
   },
   {
-    "type": "Аккумулятор",
-    "cashPayment": 140
-  },
-  {
     "type": "Алюминий кабель",
     "cashPayment": [30, 100]
+  },
+  {
+    "type": "Аккумулятор",
+    "cashPayment": 50
   },
   {
     "type": "Свинец",

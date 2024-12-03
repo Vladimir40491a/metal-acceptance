@@ -7,8 +7,9 @@
       "end": "вс"
     },
     "hours": {
-      "start": "9:00",
-      "end": "20:00"
+      "start": "8:00",
+      "end": "20:00",
+      "dayAndNight": true
     }
   },
   "phone": "+79652666568"

@@ -58,7 +58,7 @@ export default async function Home() {
           <PhoneIcon size="M" />
           <Link className="" href={`tel:${contactInfo.rawPhone}`} title="Позвонить">{contactInfo.phone}</Link>
         </Flex>
-        <div className="absolute bg-bgSecondary -bottom-1/4 md:-bottom-1/2 font-light left-1/2 py-2 px-4 rounded-sm text-center text-textPrimary transform -translate-x-1/2 -translate-y-1/2 w-11/12" >
+        <div className="absolute bg-bgSecondary -bottom-1/4 md:-bottom-1/2 font-light left-1/2 py-2 px-4 rounded-sm text-center text-zinc-900 transform -translate-x-1/2 -translate-y-1/2 w-11/12" >
           <h4>Доступна услуга вывоза металлолома</h4>
         </div>
       </header>
@@ -73,15 +73,15 @@ export default async function Home() {
       </main>
       <footer className="bg-bgPrimary flex flex-col md:flex-row gap-y-1 justify-between px-8 py-3 rounded-sm text-textSecondary text-xs md:text-sm">
         <Flex className="gap-x-1">
-          <LocationIcon color="var(--bg-secondary)" size="XS" />
+          <LocationIcon color="var(--text-tertiary)" size="XS" />
           {contactInfo.address}
         </Flex>
         <Flex className="gap-x-1">
-          <OfficeHoursIcon color="var(--bg-secondary)" size="XS" />
+          <OfficeHoursIcon color="var(--text-tertiary)" size="XS" />
           <span>{opening}</span>
         </Flex>
         <Flex className="gap-x-1">
-          <PhoneIcon color="var(--bg-secondary)" size="XS" />
+          <PhoneIcon color="var(--text-tertiary)" size="XS" />
           <Link href={`tel:${contactInfo.rawPhone}`} title="Позвонить">{contactInfo.phone}</Link>
         </Flex>
       </footer>

@@ -5,4 +5,5 @@ export const MAP_ICON_SIZE: Record<Size, string> = {
   XS: '12',
   S: '16',
   M: '24',
+  L: '32',
 }

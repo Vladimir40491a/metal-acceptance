@@ -9,6 +9,7 @@ import { ContactInfo, ContactInfoDto, MetalDto, MetalRow } from '@/app/types';
 import { LocationIcon } from '@/app/components/icons/location';
 import { OfficeHoursIcon } from '@/app/components/icons/office-hours';
 import { PhoneIcon } from '@/app/components/icons/phone';
+import { Logo } from '@/app/components/icons/logo';
 
 /** Колонки таблицы металлов. */
 const columns: Column[] = [
@@ -45,16 +46,21 @@ export default async function Home() {
 
   return (
     <div className="max-w-4xl m-auto">
-      <header className="relative bg-bgPrimary flex flex-col font-medium gap-x-8 gap-y-2 px-8 py-8 rounded-sm text-textSecondary md:flex-row md:items-center">
+      <header className="bg-bgPrimary flex flex-col font-medium gap-y-2 px-8 py-8 relative rounded-sm text-textSecondary md:flex-row md:items-center md:gap-x-5 lg:gap-x-8">
+        <div className="flex-none">
+          <Logo />
+        </div>
         <Flex className="gap-x-2.5">
-          <LocationIcon />
+          <div className="flex-none">
+            <LocationIcon />
+          </div>
           <Link href="#map" title="Посмотреть на карте">{contactInfo.address}</Link>
         </Flex>
-        <Flex className="gap-x-2.5">
+        <Flex className="flex-none gap-x-2.5">
           <OfficeHoursIcon />
           <span>{opening}</span>
         </Flex>
-        <Flex className="gap-x-2.5 grow font-semibold justify-start md:justify-end md:text-right text-lg">
+        <Flex className="flex-none gap-x-2.5 grow font-semibold justify-start md:justify-end md:text-right text-lg">
           <PhoneIcon size="M" />
           <Link className="" href={`tel:${contactInfo.rawPhone}`} title="Позвонить">{contactInfo.phone}</Link>
         </Flex>
@@ -72,6 +78,7 @@ export default async function Home() {
         </div>
       </main>
       <footer className="bg-bgPrimary flex flex-col md:flex-row gap-y-1 justify-between px-8 py-3 rounded-sm text-textSecondary text-xs md:text-sm">
+        <Logo size="M" />
         <Flex className="gap-x-1">
           <LocationIcon color="var(--text-tertiary)" size="XS" />
           {contactInfo.address}

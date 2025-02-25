@@ -1,5 +1,5 @@
 /** Размеры иконок. */
-export type Size = 'XS' | 'S' | 'M';
+export type Size = 'XS' | 'S' | 'M' | 'L';
 
 /** Свойства иконки. */
 export interface IconProps {

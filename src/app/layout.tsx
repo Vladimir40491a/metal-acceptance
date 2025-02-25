@@ -10,6 +10,12 @@ const roboto = Roboto({
 
 export const metadata: Metadata = {
   description: "Прием и вывоз металла в Москве",
+  icons: {
+    icon: {
+      url: '/favicon.svg',
+      type: 'image/x-icon',
+    },
+  },
   keywords: [
     'прием металла',
     'прием металлолома',
